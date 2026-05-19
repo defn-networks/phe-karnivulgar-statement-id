@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KARNIVULGAR // STATEMENT AND PROFILE</title>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --matrix-green: #00FF41;
+            --dark-green: #008F11;
+            --bg-color: #050505;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--matrix-green);
+            font-family: 'VT323', monospace;
+            margin: 0;
+            padding: 2rem 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-shadow: 0 0 5px rgba(0, 255, 65, 0.5);
+            position: relative;
+            line-height: 1.5;
+        }
+
+        /* scanlines overlay */
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
+                        linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            background-size: 100% 4px, 3px 100%;
+            z-index: 100;
+            pointer-events: none;
+        }
+
+        /* industrial accents (same as before) */
+        .accent {
+            position: fixed;
+            font-family: 'VT323', monospace;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 0.2rem 0.6rem;
+            color: var(--dark-green);
+            border-left: 2px solid var(--matrix-green);
+            z-index: 200;
+            pointer-events: none;
+            white-space: nowrap;
+            text-shadow: none;
+        }
+        .accent-top-left { top: 12px; left: 12px; }
+        .accent-top-right { top: 12px; right: 12px; border-left: none; border-right: 2px solid var(--matrix-green); text-align: right; }
+        .accent-bottom-left { bottom: 12px; left: 12px; }
+        .accent-bottom-right { bottom: 12px; right: 12px; border-left: none; border-right: 2px solid var(--matrix-green); text-align: right; }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            z-index: 2;
+            position: relative;
+        }
+
+        /* mask & header */
+        .mask-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .mask-artifact {
+            max-width: 200px;
+            height: auto;
+            image-rendering: pixelated;
+            filter: drop-shadow(0 0 8px var(--matrix-green));
+            margin-bottom: 0.5rem;
+        }
+
+        .specimen-strip {
+            font-size: 0.7rem;
+            text-align: center;
+            color: var(--dark-green);
+            letter-spacing: 1.5px;
+            background: rgba(0,0,0,0.5);
+            display: inline-block;
+            padding: 0.1rem 0.8rem;
+            border-top: 1px solid var(--matrix-green);
+            border-bottom: 1px solid var(--matrix-green);
+            transform: rotate(-1deg);
+            margin-bottom: 0.8rem;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin: 0;
+            letter-spacing: 2px;
+            border-bottom: 2px dashed var(--dark-green);
+            padding-bottom: 8px;
+            display: inline-block;
+            animation: rupture 6.5s infinite;
+        }
+
+        @keyframes rupture {
+            0%, 96% { transform: skew(0deg); text-shadow: 0 0 5px rgba(0, 255, 65, 0.5); }
+            97% { transform: skew(20deg); text-shadow: -4px 0 #ff003c, 4px 0 #0000ff; letter-spacing: -3px; }
+            98% { transform: skew(-15deg); text-shadow: 3px 0 var(--matrix-green), -3px 0 #fff; }
+            99% { transform: skew(5deg); text-shadow: -2px 0 #ff003c; letter-spacing: 5px; }
+            100% { transform: skew(0deg); text-shadow: 0 0 5px rgba(0, 255, 65, 0.5); }
+        }
+
+        /* content panels */
+        .card {
+            background: rgba(0, 143, 17, 0.05);
+            border: 1px solid var(--dark-green);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+
+        .card-title {
+            font-size: 1.8rem;
+            border-left: 4px solid var(--matrix-green);
+            padding-left: 12px;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+
+        .card-content {
+            font-size: 1.2rem;
+            color: #ccffcc;
+        }
+
+        .card-content p {
+            margin-bottom: 1rem;
+        }
+
+        hr {
+            border-color: var(--dark-green);
+            margin: 1rem 0;
+        }
+
+        .back-link {
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .back-link a {
+            color: var(--matrix-green);
+            text-decoration: none;
+            border: 1px solid var(--matrix-green);
+            padding: 0.5rem 1rem;
+            transition: 0.2s;
+        }
+
+        .back-link a:hover {
+            background: var(--matrix-green);
+            color: black;
+            text-shadow: none;
+        }
+
+        footer {
+            margin-top: 3rem;
+            text-align: center;
+            font-size: 0.7rem;
+            color: var(--dark-green);
+            border-top: 1px solid #1f4f1a;
+            padding-top: 1rem;
+        }
+
+        @media (max-width: 600px) {
+            body { padding: 1rem; }
+            h1 { font-size: 2.2rem; }
+            .card-title { font-size: 1.4rem; }
+            .card-content { font-size: 1rem; }
+            .accent { font-size: 0.6rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="scanlines"></div>
+
+<!-- fixed industrial accents -->
+<div class="accent accent-top-left">MEM FA1345</div>
+<div class="accent accent-top-right">L1.3459 // L2.8658</div>
+<div class="accent accent-bottom-left">CAL: 05/26 // V.3</div>
+<div class="accent accent-bottom-right">ARCHIVE :: POST-HUMAN</div>
+
+<div class="container">
+    <div class="mask-header">
+        <div class="specimen-strip">SPECIMEN REF: MEM // FA1345 // L1.3459</div>
+        <img src="mask_artifact.png" alt="POST-HUMAN MASK ARTIFACT" class="mask-artifact">
+        <h1>KARNIVULGAR</h1>
+        <div style="font-size: 1.2rem; margin-top: 0.5rem;">// POST-HUMAN SOUND ARTIST //</div>
+    </div>
+
+    <!-- ARTIST STATEMENT -->
+    <div class="card">
+        <div class="card-title">> ARTIST_STATEMENT</div>
+        <div class="card-content">
+            <p>POST-HUMAN ERA mengeksplorasi bunyi sebagai sistem yang tidak stabil dan terdistribusi, dibentuk melalui interaksi, interferensi, akumulasi, dan partisipasi. Dikembangkan melalui struktur noise, frekuensi berlapis, fragmen visual, arsip, dan interface yang terinspirasi dari jaringan, showcase ini memandang aktivitas mendengar bukan sebagai penerimaan pasif, melainkan sebagai proses aktif dalam menavigasi sinyal di dalam lingkungan yang terus berubah.</p>
+<p>Alih-alih berfungsi sebagai eksibisi konvensional dengan komposisi yang tetap dan perspektif tunggal, POST-HUMAN ERA beroperasi sebagai kerangka terbuka di mana bunyi bergerak secara dinamis melintasi ruang, sistem, dan kehadiran audiens. Multi-channel sound works, listening booth interfaces, projected interactions, printed zines, dan lapisan komunikasi partisipatoris hadir berdampingan sebagai simpul-simpul yang saling terhubung di dalam lingkungan yang sama.</p>
+<p>Showcase ini sangat dipengaruhi oleh mode interaksi kontemporer yang dibentuk oleh kultur streaming, live chat system, arsip digital, fragmented attention, dan komunikasi berjaringan. Partisipasi audiens tidak diperlakukan sebagai fitur sekunder, melainkan sebagai komponen integral yang mampu mengubah atmosfer, alur, dan interpretasi ruang itu sendiri. Melalui aktivitas mendengar simultan, interaksi anonim, input yang saling bertumpuk, dan kehadiran kolektif yang temporer, karya ini terus merekonstruksi dirinya secara real-time.</p>
+<p>POST-HUMAN ERA tidak berupaya membayangkan kondisi futuristik yang jauh. Sebaliknya, showcase ini mengamati bagaimana sistem teknologi, komunikasi yang terdistribusi, dan perilaku yang termediasi telah membentuk ulang cara manusia mendengar, berinteraksi, dan membangun makna hari ini. “Post-human” dalam showcase ini muncul bukan melalui spektakel atau dominasi teknologi, melainkan melalui pergeseran halus dalam persepsi, partisipasi, dan perilaku yang saling terhubung.</p>
+<p>Diproduksi oleh def-n Networks (Lantai Dua Studio) dan Wisma Jerman (Goethe-Institut), showcase ini hadir sebagai presentasi sekaligus sistem aktif — sebuah lingkungan temporer di mana bunyi, interface, perilaku audiens, dan kehadiran spasial terus saling memengaruhi melampaui bentuk yang stabil maupun linear.</p>
+        </div>
+    </div>
+
+    <!-- ARTIST BIO / PROFILE -->
+    <div class="card">
+        <div class="card-title">> BIO // PROFILE</div>
+        <div class="card-content">
+            <p>Karnivulgar adalah proyek sound art dan noise yang berfokus pada eksplorasi bunyi, sistem, arsip, serta perilaku interaksi kontemporer melalui pendekatan eksperimental dan lintas-medium. Berangkat dari praktik noise, drone, field recording, dan manipulasi sinyal, Karnivulgar mengembangkan karya-karya yang memosisikan bunyi bukan sekadar komposisi, melainkan sebagai lingkungan aktif yang terus berubah melalui ruang, teknologi, dan partisipasi audiens.</p>
+<p>Praktiknya banyak dipengaruhi oleh kultur internet, streaming, komunikasi berjaringan, fragmented media, serta hubungan antara manusia dan sistem digital dalam kehidupan sehari-hari. Melalui pendekatan yang terbuka dan non-linear, Karnivulgar kerap menggabungkan elemen audio, visual, arsip digital, interface interaktif, printed matter, hingga situasi partisipatoris ke dalam satu ekosistem artistik yang saling terhubung.</p>
+<p>Karnivulgar juga beroperasi melalui def-n Networks (Lantai Dua Studio), sebuah ruang produksi independen yang berfokus pada pengembangan proyek, arsip, desain sistem, dan eksperimen media secara mandiri. POST-HUMAN ERA menjadi salah satu proyek yang merepresentasikan pendekatan tersebut secara menyeluruh — bukan hanya sebagai showcase karya, tetapi sebagai lingkungan temporer yang memungkinkan bunyi, audiens, dan sistem berinteraksi secara simultan dan terus berevolusi.</p>
+            <hr>
+            <p><em>Contact / networks: def-n networks, Lantai Dua Studio, Goethe-Institut, Wisma Jerman Surabaya.</em></p>
+        </div>
+    </div>
+
+    <!-- additional credits / context -->
+    <div class="card">
+        <div class="card-title">> EXHIBITION_CREDITS</div>
+        <div class="card-content">
+            <p><strong>Post-Human Era – 21–23 Mei 2026 @ Wisma Jerman, Surabaya</strong><br>
+            Produced by Karnivulgar, def‑n networks, Wisma Jerman (Goethe-Institut)<br>
+            
+            
+            All releases embedded from Bandcamp (original sources).</p>
+            <p>This page is part of a trilogy of repositories: post-human era sound archive / live chat / artist statement.</p>
+        </div>
+    </div>
+
+    <div class="back-link">
+        <a href="https://defn-networks.github.io/post-human-era-karnivulgar">[ RETURN TO POST-HUMAN ERA ARCHIVE ]</a>
+    </div>
+
+    <footer>
+        2026 - karnivulgar - def-n networks / lantai dua studio - wisma jerman - goethe institut
+    </footer>
+</div>
+</body>
+</html>
